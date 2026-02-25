@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#6366f1"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="spark" x1="20" y1="8" x2="44" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+  </defs>
+  <!-- Rounded square background -->
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <!-- Brain/AI neural icon -->
+  <circle cx="32" cy="26" r="11" stroke="white" stroke-width="2.5" fill="none"/>
+  <path d="M27 22c0-3 2-5 5-5s5 2 5 5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M25 26h14" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M28 22v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M36 22v8" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- Connection dots (neural network) -->
+  <circle cx="22" cy="20" r="2" fill="white" opacity="0.7"/>
+  <circle cx="42" cy="20" r="2" fill="white" opacity="0.7"/>
+  <circle cx="20" cy="32" r="2" fill="white" opacity="0.7"/>
+  <circle cx="44" cy="32" r="2" fill="white" opacity="0.7"/>
+  <line x1="23.5" y1="21" x2="27" y2="23" stroke="white" stroke-width="1.2" opacity="0.5"/>
+  <line x1="40.5" y1="21" x2="37" y2="23" stroke="white" stroke-width="1.2" opacity="0.5"/>
+  <line x1="21.5" y1="31" x2="25" y2="28" stroke="white" stroke-width="1.2" opacity="0.5"/>
+  <line x1="42.5" y1="31" x2="39" y2="28" stroke="white" stroke-width="1.2" opacity="0.5"/>
+  <!-- Sparkle / learning star -->
+  <path d="M44 10l1.5 3 3 1.5-3 1.5L44 19l-1.5-3-3-1.5 3-1.5z" fill="url(#spark)"/>
+  <!-- Book / formation base -->
+  <path d="M18 44c0-2 2-3 4-3h20c2 0 4 1 4 3v6c0 1-1 2-2 2H20c-1 0-2-1-2-2v-6z" fill="white" opacity="0.9"/>
+  <path d="M32 41v11" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M22 44h8M34 44h8" stroke="#6366f1" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M22 47.5h8M34 47.5h8" stroke="#a5b4fc" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
