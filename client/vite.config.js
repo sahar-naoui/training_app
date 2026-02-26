@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://training-app-dlop.onrender.com/api',
+        target: 'https://training-app-dlop.onrender.com',
         changeOrigin: true
       }
     }
