@@ -26,6 +26,7 @@ export function AuthProvider({ children }) {
       }
 
       try {
+        console.log("LOGIN USING API INSTANCE");
         const res = await api.get('/auth/me'); // ⚠️ sans /api
         setAdmin(res.data.admin);
       } catch (error) {
