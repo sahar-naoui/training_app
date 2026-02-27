@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import { Loader2 } from 'lucide-react';
 
 const LEVEL_OPTIONS = [
@@ -51,7 +51,7 @@ function FormationForm() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get(`/api/admin/formations/${id}`);
+      const response = await api.get(`/admin/formations/${id}`);
       const formation = response.data;
 
       setFormData({
@@ -149,9 +149,9 @@ function FormationForm() {
       };
 
       if (isEditMode) {
-        await axios.put(`/api/admin/formations/${id}`, submitData);
+        await api.put(`/admin/formations/${id}`, submitData);
       } else {
-        await axios.post('/api/admin/formations', submitData);
+        await api.post('/admin/formations', submitData);
       }
 
       navigate('/admin/formations', { state: { success: isEditMode ? 'Formation modifiée avec succès.' : 'Formation créée avec succès.' } });

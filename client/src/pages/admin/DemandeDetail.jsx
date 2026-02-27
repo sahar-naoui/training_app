@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import {
   ArrowLeft,
   Mail,
@@ -36,7 +36,7 @@ function DemandeDetail() {
     const fetchDemande = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(`/api/admin/demandes/${id}`);
+        const res = await api.get(`/admin/demandes/${id}`);
         setDemande(res.data);
       } catch (err) {
         if (err.response?.status === 404) {
@@ -57,7 +57,7 @@ function DemandeDetail() {
     try {
       setSending(true);
       setError(null);
-      const res = await axios.post(`/api/admin/demandes/${id}/reply`, {
+      const res = await api.post(`/admin/demandes/${id}/reply`, {
         replyMessage: replyMessage.trim(),
       });
       setDemande(res.data.contact);
@@ -78,7 +78,7 @@ function DemandeDetail() {
   const handleDelete = async () => {
     if (!window.confirm('Êtes-vous sûr de vouloir supprimer cette demande ?')) return;
     try {
-      await axios.delete(`/api/admin/demandes/${id}`);
+      await api.delete(`/admin/demandes/${id}`);
       navigate('/admin/demandes', { state: { success: 'Demande supprimée avec succès.' } });
     } catch (err) {
       setError(err.response?.data?.message || 'Erreur lors de la suppression');

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import { Plus, Pencil, Trash2, Loader2, Star } from 'lucide-react';
 
 function Formations() {
@@ -31,7 +31,7 @@ function Formations() {
     try {
       setLoading(true);
       setError(null);
-      const response = await axios.get('/api/admin/formations');
+      const response = await api.get('/admin/formations');
       setFormations(response.data || []);
     } catch (err) {
       setError(err?.response?.data?.message || err?.message || 'Erreur lors du chargement des formations.');
@@ -48,7 +48,7 @@ function Formations() {
     try {
       setDeletingId(id);
       setError(null);
-      await axios.delete(`/api/admin/formations/${id}`);
+      await api.delete(`/admin/formations/${id}`);
       setSuccess('Formation supprimée avec succès.');
       setFormations(formations.filter((f) => f._id !== id));
 

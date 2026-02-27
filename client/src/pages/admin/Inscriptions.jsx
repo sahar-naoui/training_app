@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../../services/api';
 import {
   UserPlus,
   Loader2,
@@ -26,7 +26,7 @@ function Inscriptions() {
     try {
       setLoading(true);
       const params = filterStatut ? { statut: filterStatut } : {};
-      const res = await axios.get('/api/admin/inscriptions', { params });
+      const res = await api.get('/admin/inscriptions', { params });
       setInscriptions(res.data);
     } catch (err) {
       setError(err.response?.data?.message || 'Erreur de chargement');
@@ -39,7 +39,7 @@ function Inscriptions() {
 
   const handleUpdateStatut = async (id, statut) => {
     try {
-      await axios.patch(`/api/admin/inscriptions/${id}/statut`, { statut });
+      await api.patch(`/admin/inscriptions/${id}/statut`, { statut });
       setSuccess('Statut mis à jour.');
       setTimeout(() => setSuccess(''), 3000);
       fetchInscriptions();
@@ -51,7 +51,7 @@ function Inscriptions() {
   const handleDelete = async (id) => {
     if (!window.confirm('Supprimer cette inscription ?')) return;
     try {
-      await axios.delete(`/api/admin/inscriptions/${id}`);
+      await api.delete(`/admin/inscriptions/${id}`);
       setSuccess('Inscription supprimée.');
       setTimeout(() => setSuccess(''), 3000);
       fetchInscriptions();

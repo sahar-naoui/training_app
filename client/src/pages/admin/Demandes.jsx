@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import {
   Eye,
   Trash2,
@@ -32,7 +32,7 @@ function Demandes() {
       setLoading(true);
       setError(null);
       const params = activeFilter ? { statut: activeFilter } : {};
-      const response = await axios.get('/api/admin/demandes', { params });
+      const response = await api.get('/admin/demandes', { params });
       setDemandes(response.data || []);
     } catch (err) {
       setError(err?.response?.data?.message || err?.message || 'Erreur lors du chargement des demandes.');
@@ -72,7 +72,7 @@ function Demandes() {
 
     try {
       setDeletingId(id);
-      await axios.delete(`/api/admin/demandes/${id}`);
+      await api.delete(`/admin/demandes/${id}`);
       setDemandes(demandes.filter((d) => d._id !== id));
     } catch (err) {
       alert(err?.response?.data?.message || 'Erreur lors de la suppression.');

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../../services/api';
 import {
   GraduationCap,
   MessageSquare,
@@ -29,7 +29,7 @@ function Dashboard() {
       try {
         setLoading(true);
         setError(null);
-        const response = await axios.get('/api/admin/dashboard');
+        const response = await api.get('/admin/dashboard');
         const data = response.data;
         const s = data.stats || data;
 
