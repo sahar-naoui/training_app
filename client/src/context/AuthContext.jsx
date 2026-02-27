@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api'; // ⚠️ adapte le chemin si besoin
 
 const AuthContext = createContext(null);
 
@@ -8,12 +8,12 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
   const [loading, setLoading] = useState(true);
 
-  // Configurer axios avec le token
+  // Configurer le token sur TON instance api
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } else {
-      delete axios.defaults.headers.common['Authorization'];
+      delete api.defaults.headers.common['Authorization'];
     }
   }, [token]);
 
@@ -24,10 +24,11 @@ export function AuthProvider({ children }) {
         setLoading(false);
         return;
       }
+
       try {
-        const res = await axios.get('/api/auth/me');
+        const res = await api.get('/auth/me'); // ⚠️ sans /api
         setAdmin(res.data.admin);
-      } catch {
+      } catch (error) {
         localStorage.removeItem('admin_token');
         setToken(null);
         setAdmin(null);
@@ -35,15 +36,18 @@ export function AuthProvider({ children }) {
         setLoading(false);
       }
     };
+
     checkAuth();
   }, [token]);
 
   const login = async (email, password) => {
-    const res = await axios.post('/api/auth/login', { email, password });
+    const res = await api.post('/auth/login', { email, password }); // ⚠️ sans /api
     const { token: newToken, admin: adminData } = res.data;
+
     localStorage.setItem('admin_token', newToken);
     setToken(newToken);
     setAdmin(adminData);
+
     return res.data;
   };
 
@@ -51,11 +55,20 @@ export function AuthProvider({ children }) {
     localStorage.removeItem('admin_token');
     setToken(null);
     setAdmin(null);
-    delete axios.defaults.headers.common['Authorization'];
+    delete api.defaults.headers.common['Authorization'];
   };
 
   return (
-    <AuthContext.Provider value={{ admin, token, loading, login, logout, isAuthenticated: !!admin }}>
+    <AuthContext.Provider
+      value={{
+        admin,
+        token,
+        loading,
+        login,
+        logout,
+        isAuthenticated: !!admin
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
