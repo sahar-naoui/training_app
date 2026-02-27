@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
-import api from '../services/api'; // ⚠️ adapte le chemin si besoin
+import api from '../services/api';
 
 const AuthContext = createContext(null);
 
@@ -8,7 +8,6 @@ export function AuthProvider({ children }) {
   const [token, setToken] = useState(() => localStorage.getItem('admin_token'));
   const [loading, setLoading] = useState(true);
 
-  // Configurer le token sur TON instance api
   useEffect(() => {
     if (token) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -17,7 +16,6 @@ export function AuthProvider({ children }) {
     }
   }, [token]);
 
-  // Vérifier le token au chargement
   useEffect(() => {
     const checkAuth = async () => {
       if (!token) {
@@ -26,8 +24,7 @@ export function AuthProvider({ children }) {
       }
 
       try {
-        console.log("LOGIN USING API INSTANCE");
-        const res = await api.get('/auth/me'); // ⚠️ sans /api
+        const res = await api.get('/auth/me');
         setAdmin(res.data.admin);
       } catch (error) {
         localStorage.removeItem('admin_token');
@@ -42,7 +39,7 @@ export function AuthProvider({ children }) {
   }, [token]);
 
   const login = async (email, password) => {
-    const res = await api.post('/auth/login', { email, password }); // ⚠️ sans /api
+    const res = await api.post('/auth/login', { email, password });
     const { token: newToken, admin: adminData } = res.data;
 
     localStorage.setItem('admin_token', newToken);
